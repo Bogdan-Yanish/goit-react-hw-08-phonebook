@@ -2,9 +2,10 @@ import React, {Component} from "react";
 import { nanoid } from "nanoid";
 
 import { Container } from "./Container/Container";
+import { Section } from "./Section/Section";
 import { ContactForm } from "./ContactForm/ContactForm";
 import { Filter } from "./Filter/Filter";
-import { ContactList } from "./Contact/ContactList";
+import { ContactList } from "./Contact/ContactList/ContactList";
 
 export class App extends Component {
   state = {
@@ -14,9 +15,7 @@ export class App extends Component {
       {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
       {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
     ],
-    filter: '',
-    name: '',
-    number: ''
+    filter: ''   
   }
 
 handleChange = event => {
@@ -26,10 +25,6 @@ handleChange = event => {
 
 addContact = (name, number) => {
   const contactsList = [...this.state.contacts];
-  //   this.setState(({ contacts }) => ({
-  //   contacts: [...contacts, {id:nanoid(), name, number}],
-  // }));
-    
   if (contactsList.findIndex(contact => name === contact.name) !== -1) {
       alert(`${name} is already in contacts.`);
   } else {
@@ -37,16 +32,9 @@ addContact = (name, number) => {
       contacts: [...contacts, {id:nanoid(), name, number}],
     }));
 }
-}
+};
 
-// handleIsContact = name => {
-//   const { contacts } = this.state;
-//   const isContact = contacts.find(contact => contact.name === name);
-//   isContact && alert(`${name} is already in contacts.`);
-//   return isContact;
-// };
-
-HandleDeleteContact = contactId =>
+deleteContact = contactId =>
     this.setState(({ contacts }) => ({
       contacts: contacts.filter(contact => contact.id !== contactId),
     }));
@@ -59,25 +47,25 @@ filteredContacts = () => {
         .includes(filter.toLocaleLowerCase())
       );
     };
- 
 
 render() {
   return (
     <Container>
-        <h1>Phonebook</h1>
-        <ContactForm 
-        onSubmit={this.addContact}
-        />
+        <Section title="Phonebook">
+            <ContactForm 
+              onSubmit={this.addContact}
+            />
+        </Section>
 
-        <h2>Contacts</h2>
+        <Section title="Contacts">
+            <Filter 
+              filter={this.state.filter}
+              handleChange={this.handleChange}/>
 
-        <Filter 
-        filter={this.state.filter}
-        handleChange={this.handleChange}/>
-
-        <ContactList 
-        contacts={this.filteredContacts()}
-        handleDelete={this.HandleDeleteContact} />
+            <ContactList 
+              contacts={this.filteredContacts()}
+              handleDelete={this.deleteContact} />
+        </Section>
     </Container>
     
     
