@@ -19,13 +19,10 @@ export class App extends Component {
   }
 
 componentDidMount() {
-  console.log('componentDidMount');
   const contactsList = JSON.parse(localStorage.getItem('contacts'));
-
   if (contactsList) {
     this.setState({contacts: contactsList});
   }
-  
 }
 
 componentDidUpdate(prevProps, prevState) {
@@ -33,7 +30,6 @@ componentDidUpdate(prevProps, prevState) {
     prevState.contacts.lenght !== 0 &&
     prevState.contacts.lenght !== this.state.contacts.length
       ) {
-    console.log('componentDidUpdate');
     localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
   }
 }
@@ -77,21 +73,22 @@ render() {
             />
         </Section>
 
-        <Section title="Contacts">
-            <Filter 
-              filter={this.state.filter}
-              handleChange={this.handleChange}/>
-
-            <ContactList 
-              contacts={this.filteredContacts()}
-              handleDelete={this.deleteContact} />
-        </Section>
+        {!!this.state.contacts.length && (
+            <Section title="Contacts">
+              <Filter 
+                filter={this.state.filter}
+                handleChange={this.handleChange}/>
+              <ContactList 
+                contacts={this.filteredContacts()}
+                handleDelete={this.deleteContact} />
+            </Section>
+        )}
     </Container>
-    
-    
   )
 }
 }
+
+
 
 
 
