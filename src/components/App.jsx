@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { nanoid } from "nanoid";
 import { useLocalStorage } from "./Hooks/UseLocalStorage";
+import toast, { Toaster } from 'react-hot-toast';
 
 import { Container } from "./Container/Container";
 import { Section } from "./Section/Section";
@@ -19,9 +20,18 @@ export const App = () => {
 
   const addContact = (name, number) => {
     const contactsList = [...contacts];
-
+    
     if (contactsList.findIndex(contact => name === contact.name) !== -1) {
-      alert(`${name} is already in contacts.`);
+      toast(`${name} is already in contacts.`, {
+        duration: 3000,
+        style: {
+        border: '1px solid transparent',
+        padding: '16px',
+        color: 'red',
+        width: '300px',
+    },
+  });
+      
     } else {
       contactsList.push({ id:nanoid(), name, number });
     }
@@ -60,6 +70,10 @@ export const App = () => {
                 handleDelete={deleteContact} />
             </Section>
         )}
+
+        <Toaster 
+          position="top-center"/>
+
     </Container>
   )
 }
