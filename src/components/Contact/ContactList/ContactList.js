@@ -1,15 +1,28 @@
-import propTypes from 'prop-types';
 import { ContactItem } from "../ContactItem/ContactItem";
 import {ContactListItem, ContactsList} from './ContactList.styled';
+import { useSelector } from 'react-redux';
+import { getContacts, getFilter } from 'redux/selectors';
 
-export const ContactList = ({ contacts, handleDelete }) => {
+export const ContactList = () => {
+    const contactsData = useSelector(getContacts);
+    const filterData = useSelector(getFilter);
+
+    const filteredContacts = () => {
+        return contactsData.filter(contact =>
+            contact.name
+            .toLowerCase()
+            .includes(filterData)
+          );
+        };
+
     return (
         <ContactsList>
-            {contacts.map( contactData => (
-                <ContactListItem key={contactData.id}>
+            {filteredContacts()?.map( ({name, number, id}) => (
+                <ContactListItem key={id}>
                     <ContactItem 
-                        contactData={contactData}
-                        handleDelete={handleDelete} 
+                        name={name}
+                        number={number}
+                        id={id}
                     />
                 </ContactListItem>
             ))}
@@ -17,34 +30,4 @@ export const ContactList = ({ contacts, handleDelete }) => {
     );
 }
 
-ContactList.propTypes = {
-    contacts:propTypes.arrayOf(
-        propTypes.shape({
-            id:propTypes.string.isRequired,
-            name:propTypes.string.isRequired,
-            number:propTypes.string.isRequired,
-        })
 
-    ),
-    handleDelete:propTypes.func.isRequired,
-}
-
-// export const ContactList = ({ contacts, handleDelete }) => {
-//     return (
-//         <div>
-//             <ul>
-//                 {contacts.map((contact, id) => (
-//                 <li key={id}>
-//                     {contact.name}: {contact.number}
-//                     <button
-//                     type="button"
-//                     onClick={() => handleDelete(contact.id)}
-//                 >
-//                     Delete
-//                     </button>
-//                 </li>
-//             ))}
-//             </ul>
-//         </div>
-//     );
-// }
