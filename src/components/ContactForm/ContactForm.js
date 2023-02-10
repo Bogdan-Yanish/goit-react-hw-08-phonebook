@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getContacts } from 'redux/selectors';
-import { addContact } from 'redux/contactsSlice';
+import { selectContacts } from 'redux/selectors';
+import { addContact } from 'redux/operations';
 import { Form, FormInput, FormLabel, Btn } from './ContactForm.styled';
-import { nanoid } from 'nanoid';
 
 export const ContactForm = () => {
-    const contactsData = useSelector(getContacts);
+    const contactsData = useSelector(selectContacts);
     const dispatch = useDispatch();
     const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
+    const [phone, setPhone] = useState('');
 
     const handleChangeForm = event => {
         const {name, value} = event.currentTarget;
@@ -17,8 +16,8 @@ export const ContactForm = () => {
             case 'name':
                 setName(value);                
                 break;
-            case 'number':
-                setNumber(value);
+            case 'phone':
+                setPhone(value);
                 break;
             default:
                 return;
@@ -32,7 +31,7 @@ export const ContactForm = () => {
             alert(`${name} is already in contacts.`)
             setName('');
         } else {
-            dispatch(addContact({id:nanoid(), name, number}));
+            dispatch(addContact({ name, phone }));
             resetForm();
         }
     
@@ -40,7 +39,7 @@ export const ContactForm = () => {
 
     const resetForm = () => {
         setName('');
-        setNumber('');
+        setPhone('');
     }
 
     return (
@@ -57,10 +56,10 @@ export const ContactForm = () => {
                 />
                 <FormLabel>Number</FormLabel>
                 <FormInput
-                    value={number}
+                    value={phone}
                     onChange={handleChangeForm}
                     type="tel"
-                    name="number"
+                    name="phone"
                     pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                     title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                     required
