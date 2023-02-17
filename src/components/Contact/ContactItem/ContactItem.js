@@ -1,14 +1,14 @@
 import propTypes from 'prop-types';
 import {ContactWrap, ContactInfo, DelBtn} from './ContactItem.styled';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/operations';
+import { deleteContact } from 'redux/contacts/operations';
 
-export const ContactItem = ({ id, name, phone }) => {
+export const ContactItem = ({ id, name, number }) => {
     const dispatch = useDispatch();
     return (
         <ContactWrap>
             <ContactInfo>
-                {name}: {phone}
+                {name}: {number}
             </ContactInfo>
                 <DelBtn
                 type="button"
@@ -23,5 +23,5 @@ export const ContactItem = ({ id, name, phone }) => {
 ContactItem.propTypes = {
     id:propTypes.string.isRequired,
     name:propTypes.string.isRequired,
-    phone:propTypes.string.isRequired
+    number:propTypes.string.isRequired
 }
