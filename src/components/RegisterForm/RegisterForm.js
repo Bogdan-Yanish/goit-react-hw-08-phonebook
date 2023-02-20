@@ -1,5 +1,9 @@
 import { useDispatch } from "react-redux";
 import { register } from "redux/auth/operations";
+import { Form, FormInput, FormLabel, Btn } from '../ContactForm/ContactForm.styled';
+import { Section } from "components/Section/Section";
+import { Container } from "components/Container/Container";
+import { SectionRegister } from "./RegisterForm.styled";
 
 export const RegisterForm = () => {
     const dispatch = useDispatch();
@@ -19,32 +23,38 @@ export const RegisterForm = () => {
     };
   
     return (
-        <form onSubmit={handleSubmit} autoComplete="off">
-            <label>
-                Name
-                <input 
+        <Container>
+        <SectionRegister>
+        <Section title="Registration Form">
+        <Form onSubmit={handleSubmit} autoComplete="off">
+            <FormLabel>
+                {/* Name */}
+                <FormInput 
                 type="text"
                 name="name"
-                placeholder="Enter your name..." 
+                placeholder="Name *" 
                 required/>
-            </label>
-            <label>
-                Email
-                <input 
+            </FormLabel>
+            <FormLabel>
+                {/* Email */}
+                <FormInput 
                 type="email" 
                 name="email"
-                placeholder="Enter your email..." 
+                placeholder="Email *" 
                 required/>
-            </label>
-            <label>
-                Password
-                <input 
+            </FormLabel>
+            <FormLabel>
+                {/* Password */}
+                <FormInput 
                 type="password"
                 name="password"
-                placeholder="***more than 7 characters"
+                placeholder="Password (more than 7 characters) *"
                 required/>
-            </label>
-            <button type="submit">Register</button>
-        </form>
+            </FormLabel>
+            <Btn type="submit">Sign Up</Btn>
+        </Form>
+        </Section>
+        </SectionRegister>
+        </Container>
     );
 };

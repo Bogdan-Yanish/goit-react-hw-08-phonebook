@@ -19,7 +19,7 @@ export const DelBtn = styled.button`
     font-weight: 500;
     padding: 5px;
     border-radius: 10px;
-    background-color:blue;
+    background-color:#1976D2;
     color:white;
     cursor:pointer;
     border:none;   

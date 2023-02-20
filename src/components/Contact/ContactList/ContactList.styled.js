@@ -7,7 +7,7 @@ export const ContactsList = styled.ul`
 `
 
 export const ContactListItem = styled.li`
-    border: 1px solid blue;
+    border: 1px solid #1976D2;
     border-radius: 10px;
     align-items: center;
     justify-content: space-between;

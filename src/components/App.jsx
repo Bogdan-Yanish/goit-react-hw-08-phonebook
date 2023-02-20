@@ -1,51 +1,12 @@
-// import React, {useEffect} from "react";
-// import { Container } from "./Container/Container";
-// import { Section } from "./Section/Section";
-// import { ContactForm } from "./ContactForm/ContactForm";
-// import { Filter } from "./Filter/Filter";
-// import { ContactList } from "./Contact/ContactList/ContactList";
-// import { useSelector, useDispatch } from "react-redux";
-// import { selectContacts, selectIsLoading, selectError } from "redux/contacts/selectors";
-// import { fetchContacts } from "redux/contacts/operations";
-// import { LoaderSpinner } from "./Loader/loader";
-
-// export const App = () => {
-  
-//   const contactsData = useSelector(selectContacts);
-//   const isLoading = useSelector(selectIsLoading);
-//   const error = useSelector(selectError);
-//   const dispatch = useDispatch();
-
-//   useEffect(() => {
-//         dispatch(fetchContacts());
-//     }, [dispatch]);
-  
-//   return (
-//     <Container>
-//         <Section title="Phonebook">
-//             {isLoading && !error && <LoaderSpinner />}
-//             <ContactForm/>
-//         </Section>
-
-//         {!!contactsData.length && (
-//           <Section title="Contacts">
-//             <Filter/>
-//             <ContactList/>
-//           </Section>
-//         )}
-        
-//     </Container>
-//   )
-// }
-
 import { useEffect, lazy } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import { Layout } from './Layout';
+import { Layout } from './Layout/Layout';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
 import { refreshUser } from 'redux/auth/operations';
 import { useAuth } from './Hooks/useAuth';
+import { LoaderSpinner } from './Loader/loader';
 
 const HomePage = lazy(() => import('pages/Home'));
 const RegisterPage = lazy(() => import('pages/Register'));
@@ -61,7 +22,8 @@ export const App = () => {
   }, [dispatch]);
 
   return isRefreshing ? (
-    <b>Refreshing user...</b>
+    // <b>Refreshing user...</b>
+    <LoaderSpinner/>
   ) : (
     <Routes>
       <Route path="/" element={<Layout />}>

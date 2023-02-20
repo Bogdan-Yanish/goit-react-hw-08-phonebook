@@ -2,12 +2,21 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const StyledLink = styled(NavLink)`
-  color: blue;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
+  
   &.active {
-    color: red;
+    text-decoration: underline;
   }
+
   & + & {
-    margin-left: 1rem;
+    margin-left: 15px;
+  }
+
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
